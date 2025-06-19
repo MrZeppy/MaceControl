@@ -1,0 +1,15 @@
+##########################################################
+#
+#  _____
+# |__  /___ _ __  _ __  _   _
+#   / // _ \ '_ \| '_ \| | | |
+#  / /|  __/ |_) | |_) | |_| |
+# /____\___| .__/| .__/ \__, |
+#          |_|   |_|    |___/
+#
+#    MaceControl Plugin by Zeppy
+#    Config file — please do not delete or modify badly
+#    GitHub - https://github.com/MrZeppy/MaceControl.git
+##########################################################
+max-mace-count: 5
+mace-command-cooldown: 5 # in seconds

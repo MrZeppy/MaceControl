@@ -1,0 +1,11 @@
+name: MaceControl
+version: '0.9'
+main: me.zeppy.maceControl.MaceControl
+author: Zeppy
+api-version: '1.21'
+commands:
+  mace:
+    description: Display which players have the mace
+  droppedmace:
+    description: Admin-only — Show temp dropped maces
+    permission: op
