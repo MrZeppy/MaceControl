@@ -1,11 +1,49 @@
 name: MaceControl
-version: '0.9'
+version: '0.9.1'
 main: me.zeppy.maceControl.MaceControl
 author: Zeppy
 api-version: '1.21'
+description: Advanced mace management and tracking system for Minecraft servers
+website: https://github.com/zeppy/MaceControl
+
+
 commands:
   mace:
-    description: Display which players have the mace
+    description: Display which players currently have the mace
+    usage: /mace
+    permission-message: "§cYou don't have permission to use this command."
+
   droppedmace:
-    description: Admin-only — Show temp dropped maces
-    permission: op
+    description: Admin command to view temporarily dropped maces
+    usage: /droppedmace
+    aliases: [tempdrops, macedrops]
+    permission: macecontrol.admin
+    permission-message: "§cYou don't have permission to use this command."
+
+  macereload:
+    description: Reload MaceControl configuration and settings
+    usage: /macereload
+    aliases: [macecontrolreload, mcreload]
+    permission: macecontrol.admin
+    permission-message: "§cYou don't have permission to use this command."
+
+permissions:
+  macecontrol.*:
+    description: Grants all MaceControl permissions
+    default: false
+    children:
+      macecontrol.admin: true
+      macecontrol.bypass: true
+      macecontrol.use: true
+
+  macecontrol.admin:
+    description: Allows access to administrative commands and features
+    default: op
+
+  macecontrol.bypass:
+    description: Bypasses mace restrictions and limitations
+    default: false
+
+  macecontrol.use:
+    description: Allows basic usage of mace-related commands
+    default: true
