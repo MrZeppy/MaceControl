@@ -12,57 +12,35 @@
 #    GitHub - https://github.com/MrZeppy/MaceControl.git
 ##########################################################
 
-# === CORE SETTINGS ===
+# Maximum number of Maces allowed on server
 max-mace-count: 5
-mace-command-cooldown: 5 # in seconds
 
-
-# === PERMISSIONS ===
-# Who can bypass mace limits and restrictions
+# Permissions
 bypass-permission: "macecontrol.bypass"
 admin-permission: "macecontrol.admin"
 
+# Auto-save interval in minutes
+auto-save-interval-minutes: 5
 
-# === RESTRICTIONS ===
-restrictions:
-  # Prevent maces from being put in containers
-  block-containers: true
+# Command cooldown in seconds
+mace-command-cooldown: 5
 
-  # Prevent maces from being put on armor stands
-  block-armor-stands: true
-
-  # Prevent maces from being put in item frames
-  block-item-frames: true
-
-  # Prevent maces from being put in bundles
-  block-bundles: true
-
-  # Prevent heavy cores from being put in auto crafters
-  block-heavy-core-autocrafter: true
-
-  # Allow maces in ender chests (since they're player-specific)
-  allow-ender-chest: false
-
-  # Allow maces in shulker boxes
-  allow-shulker-boxes: false
-
-
-# === WORLD SETTINGS ===
+# World restrictions
 worlds:
-  # Worlds where mace crafting is allowed (empty = all worlds)
-  allowed-craft-worlds: []
+  allowed-craft-worlds: []  # Empty = all worlds allowed
+  restricted-worlds: []     # Worlds where crafting is blocked
 
-  # Worlds where mace restrictions apply (empty = all worlds)
-  restricted-worlds: []
+# Item restrictions
+restrictions:
+  block-containers: true           # Block storing in chests, etc.
+  allow-ender-chest: false        # Allow ender chest storage
+  allow-shulker-boxes: false      # Allow shulker box storage
+  block-item-frames: true         # Block placing on item frames
+  block-armor-stands: true        # Block placing on armor stands
+  block-heavy-core-autocrafter: true  # Block heavy core automation
+  block-flower-pots: true       # Block placing into flower pots
 
-
-# === NOTIFICATIONS ===
+# Messages
 messages:
-  # Broadcast when a mace is destroyed/lost
-  broadcast-destruction: true
-
-  # Notify when someone crafts a mace
-  broadcast-craft: true
-
-
-
+  broadcast-destruction: true     # Announce when Mace is destroyed
+  broadcast-craft: true          # Announce when Mace is crafted

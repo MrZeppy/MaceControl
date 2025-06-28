@@ -201,10 +201,7 @@ public final class MaceControl extends JavaPlugin implements Listener {
             getConfig().set("restrictions.block-heavy-core-autocrafter", true);
             configChanged = true;
         }
-        if (!getConfig().contains("restrictions.block-bundles")) {
-            getConfig().set("restrictions.block-bundles", true);
-            configChanged = true;
-        }
+
 
         // Message settings
         if (!getConfig().contains("messages.broadcast-destruction")) {
@@ -213,6 +210,10 @@ public final class MaceControl extends JavaPlugin implements Listener {
         }
         if (!getConfig().contains("messages.broadcast-craft")) {
             getConfig().set("messages.broadcast-craft", true);
+            configChanged = true;
+        }
+        if (!getConfig().contains("restrictions.block-flower-pots")) {
+            getConfig().set("restrictions.block-flower-pots", true);
             configChanged = true;
         }
 

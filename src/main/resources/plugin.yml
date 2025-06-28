@@ -1,5 +1,5 @@
 name: MaceControl
-version: '0.9.1'
+version: '0.9.2'
 main: me.zeppy.maceControl.MaceControl
 author: Zeppy
 api-version: '1.21'

@@ -21,6 +21,9 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.BlockInventoryHolder;
 import org.bukkit.inventory.meta.BundleMeta;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.block.Block;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -214,6 +217,31 @@ public class MaceEventHandler implements Listener {
     }
 
     @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
+        Block clickedBlock = event.getClickedBlock();
+        if (clickedBlock == null) return;
+
+        // Check if it's a flower pot (including decorated pots)
+        Material blockType = clickedBlock.getType();
+        if (!blockType.toString().contains("FLOWER_POT") &&
+                !blockType.toString().contains("DECORATED_POT")) {
+            return;
+        }
+
+        ItemStack item = event.getItem();
+        if (!isUniqueMace(item)) return;
+
+        Player player = event.getPlayer();
+        if (!hasPermission(player, plugin.getConfig().getString("bypass-permission", "macecontrol.bypass"))
+                && isRestrictionEnabled("block-flower-pots")) {
+            event.setCancelled(true);
+            player.sendMessage("§cYou cannot place the Mace in a flower pot!");
+        }
+    }
+
+    @EventHandler
     public void onInventoryPickupItem(InventoryPickupItemEvent event) {
         ItemStack item = event.getItem().getItemStack();
         if (isUniqueMace(item) || isHeavyCore(item)) {
@@ -325,7 +353,7 @@ public class MaceEventHandler implements Listener {
             }
 
             // Prevent shift-click moving Mace into bundle
-            if (isUniqueMace(current) && !hasBypass && isRestrictionEnabled("block-bundles") && clickedInventory.getType() == InventoryType.PLAYER) {
+            if (isUniqueMace(current) && !hasBypass && clickedInventory.getType() == InventoryType.PLAYER) {
                 // Check if destination has bundles
                 for (ItemStack item : destinationInventory.getContents()) {
                     if (isBundle(item)) {
@@ -367,7 +395,7 @@ public class MaceEventHandler implements Listener {
             }
 
             // Prevent hotkey swapping Mace with bundle item
-            if (!hasBypass && isRestrictionEnabled("block-bundles")) {
+            if (!hasBypass) {
                 if ((hotbarItem != null && isUniqueMace(hotbarItem) && isBundle(current))
                         || (cursor != null && isUniqueMace(cursor) && isBundle(current))) {
                     event.setCancelled(true);
@@ -388,7 +416,7 @@ public class MaceEventHandler implements Listener {
         boolean hasBypass = hasPermission(player, plugin.getConfig().getString("bypass-permission", "macecontrol.bypass"));
 
         // Player trying to insert mace into bundle or vice versa
-        if (!hasBypass && isRestrictionEnabled("block-bundles")) {
+        if (!hasBypass) {
             if ((clicked.getType() == Material.BUNDLE && isUniqueMace(cursor))
                     || (cursor.getType() == Material.BUNDLE && isUniqueMace(clicked))) {
                 event.setCancelled(true);
